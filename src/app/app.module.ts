@@ -11,7 +11,7 @@ import { FooterModule } from './footer/footer.module';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     HeaderModule,
     FooterModule,
