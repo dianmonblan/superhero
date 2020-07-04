@@ -14,9 +14,10 @@ const routes: Routes = [{
   imports: [
     QuicklinkModule,
     RouterModule.forRoot(routes, {
-    preloadingStrategy: QuicklinkStrategy,
-    initialNavigation: 'enabled'
-})
+      preloadingStrategy: QuicklinkStrategy,
+      initialNavigation: 'enabled',
+      scrollPositionRestoration: 'enabled'
+    })
   ],
   exports: [
     RouterModule,

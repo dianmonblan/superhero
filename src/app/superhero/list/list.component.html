@@ -13,10 +13,7 @@
             <a [routerLink]="['/', superHeroe.id]" [title]="superHeroe.name">{{superHeroe.name}}</a>
 
             <figure class="card-img-top">
-                <img class="img-fluid" imageLazyLoading="{{superHeroe.images.md}}"
-                    imageLazyLoadingAlt="{{superHeroe.name}}"
-                    (imageLazyLoadingInProcess)="superHeroesImageLazyLoadingInProcess[index] = $event" />
-                <div [hidden]="superHeroesImageLazyLoadingInProcess[index] == false"></div>
+                <img imageLazyLoading="{{superHeroe.images.md}}" imageLazyLoadingAlt="{{superHeroe.name}}" />
                 <figcaption>{{superHeroe.name}}</figcaption>
             </figure>
 

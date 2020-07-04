@@ -1,6 +1,11 @@
 // Custom
 @import "./themes/variables.scss";
 
+html,
+body {
+    height: 100%;
+}
+
 body {
     color: $font-color;
     font-style: $font-size;

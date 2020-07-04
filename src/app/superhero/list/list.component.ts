@@ -13,7 +13,6 @@ import { SuperHeroModel } from '../../shared/models/superhero.model';
 export class ListComponent implements OnDestroy {
   private _superHeroesBehaviorSubject: BehaviorSubject<SuperHeroModel[]> = new BehaviorSubject([])
   superHeroes: Observable<SuperHeroModel[]> = this._superHeroesBehaviorSubject.asObservable()
-  superHeroesImageLazyLoadingInProcess: boolean[] = new Array(NUMBER_SUPERHEROES_FOR_LIST)
 
   constructor(private _superHeroService: SuperHeroService) {
     this.list()
