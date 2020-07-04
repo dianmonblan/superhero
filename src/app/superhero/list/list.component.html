@@ -1,5 +1,6 @@
 <div class="row">
-    <div class="col-6 col-md-3" *ngFor="let superHeroe of (superHeroes | async); trackBy: trackByFunction">
+    <div class="col-6 col-md-3"
+        *ngFor="let superHeroe of (superHeroes | async); index as index; trackBy: trackByFunction;">
         <div class="card">
             <!--
                 Un enlace sole puede contener como valor texto en su etiqueta
@@ -12,9 +13,13 @@
             <a [routerLink]="['/', superHeroe.id]" [title]="superHeroe.name">{{superHeroe.name}}</a>
 
             <figure class="card-img-top">
-                <img class="img-fluid" [src]="superHeroe.images.md" [alt]="superHeroe.name">
+                <img class="img-fluid" imageLazyLoading="{{superHeroe.images.md}}"
+                    imageLazyLoadingAlt="{{superHeroe.name}}"
+                    (imageLazyLoadingInProcess)="superHeroesImageLazyLoadingInProcess[index] = $event" />
+                <div [hidden]="superHeroesImageLazyLoadingInProcess[index] == false"></div>
                 <figcaption>{{superHeroe.name}}</figcaption>
             </figure>
+
             <div class="card-body">
                 <ul>
                     <li>Intelligence: <strong>{{superHeroe.powerstats.intelligence || 'N'}}</strong></li>

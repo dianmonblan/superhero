@@ -32,6 +32,11 @@
     figure {
       margin: 0px;
 
+      div {
+        background-color: $car-background-color;
+        min-height: 300px;
+      }
+
       figcaption {
         padding: 31px 10px 0px 10px;
         text-align: center;
