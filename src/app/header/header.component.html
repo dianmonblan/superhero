@@ -24,7 +24,7 @@
         <button type="button" [id]="movileMenuId" class="navbar-toggler d-sm-block d-md-none">
             <span [id]="movileMenuId" [class.navbar-toggler-icon]="!viewMovileMenu"></span>
         </button>
-        <div class="menu-options d-md-block" [class.movile]="viewMovileMenu" [class.d-none]="!viewMovileMenu">
+        <div class="menu-options d-md-inline-block" [class.movile]="viewMovileMenu" [class.d-none]="!viewMovileMenu">
             <ng-container *ngTemplateOutlet="menuTemplate; context: {menu: menu}">
             </ng-container>
         </div>

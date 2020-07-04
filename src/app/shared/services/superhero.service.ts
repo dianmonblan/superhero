@@ -1,13 +1,14 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, tap, filter } from 'rxjs/operators';
+import { map, tap, filter, retry } from 'rxjs/operators';
 
 import { SUPERHERO } from '../../../environments/environment';
 import { SuperHeroModel } from '../models/superhero.model';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 
+export const NUMBER_SUPERHEROES_FOR_LIST: number = 20
 const SUPERHEROE_KEY = makeStateKey('superHeroe');
 const SUPERHEROES_KEY = makeStateKey('superHeroes');
 const SUPERHEROES_RANDOM_IDS_KEY = makeStateKey('superHeroesIds');
@@ -67,6 +68,8 @@ export class SuperHeroService {
 
     private _random(length: number): SuperHeroModel[] {
         let superHeroes: SuperHeroModel[] = []
+        length = this._superHeroes.length < length ? this._superHeroes.length : length
+        console.log(length)
 
         if (!this._superHeroesIds.length) {
             while (superHeroes.length < length) {
@@ -86,18 +89,24 @@ export class SuperHeroService {
         return superHeroes
     }
 
-    list(): Observable<SuperHeroModel[]> {
+    list(random: boolean = true, filter: string = null, length: number = NUMBER_SUPERHEROES_FOR_LIST): Observable<SuperHeroModel[]> {
         if (this.existsSuperHeroes())
-            return of(this._superHeroes)
+            return of(this._superHeroes).pipe(
+                map((superHeroes: SuperHeroModel[]) => filter ? this._filter(filter) : superHeroes),
+                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes)
+            )
 
         return this._httpClient.get<SuperHeroModel[]>(SUPERHERO.RESOURCE.LIST)
             .pipe(
+                retry(3),
                 map((superHeroes: SuperHeroModel[]) => this._map(superHeroes)),
                 tap((superHeroes: SuperHeroModel[]) => this._superHeroes = superHeroes),
                 tap((superHeroes: SuperHeroModel[]) => {
                     if (isPlatformServer(this._platform))
-                        this._transferState.set<SuperHeroModel[]>(SUPERHEROES_KEY, this._superHeroes)
+                        this._transferState.set<SuperHeroModel[]>(SUPERHEROES_KEY, superHeroes)
                 }),
+                map((superHeroes: SuperHeroModel[]) => filter ? this._filter(filter) : superHeroes),
+                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes)
             )
     }
 
@@ -113,6 +122,7 @@ export class SuperHeroService {
 
         return this._httpClient.get<SuperHeroModel>(RESOURCE)
             .pipe(
+                retry(3),
                 map((superHero: SuperHeroModel) => new SuperHeroModel(superHero)),
                 tap((superHeroe: SuperHeroModel) => this._superHeroe = superHeroe),
                 tap((superHeroe: SuperHeroModel) => {
@@ -120,23 +130,5 @@ export class SuperHeroService {
                         this._transferState.set<SuperHeroModel>(SUPERHEROE_KEY, this._superHeroe)
                 })
             )
-    }
-
-    search(filter: string): Observable<SuperHeroModel[]> {
-        if (this.existsSuperHeroes())
-            return of(this._filter(filter))
-
-        return this.list().pipe(
-            map((superHeroes: SuperHeroModel[]) => this._filter(filter)),
-        )
-    }
-
-    random(length: number): Observable<SuperHeroModel[]> {
-        if (this.existsSuperHeroes())
-            return of(this._random(length))
-
-        return this.list().pipe(
-            map((superHeroes: SuperHeroModel[]) => this._random(length)),
-        )
     }
 }

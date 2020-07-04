@@ -1,11 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-import { SuperHeroService } from '../../shared/services/superhero.service';
-import { SuperHeroModel } from '../../shared/models/superhero.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
-const NUMBER_SUPERHEROES_FOR_LIST: number = 20
+import { SuperHeroService, NUMBER_SUPERHEROES_FOR_LIST } from '../../shared/services/superhero.service';
+import { SuperHeroModel } from '../../shared/models/superhero.model';
 
 @Component({
   selector: 'app-list',
@@ -26,7 +24,7 @@ export class ListComponent implements OnDestroy {
   }
 
   list(): void {
-    this._superHeroService.random(NUMBER_SUPERHEROES_FOR_LIST)
+    this._superHeroService.list()
       .subscribe(
         (superHeroes: SuperHeroModel[]) => this._superHeroesBehaviorSubject.next(superHeroes),
         (error: HttpErrorResponse) => console.error
