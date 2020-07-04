@@ -1,28 +1,29 @@
 <div class="row">
-    <div class="card col-6 col-md-3">
-        <!--
-            Un enlace sole puede contener como valor texto en su etiqueta
-            debido a que esto afecto los lectores de pantalla para personas
-            con discapacidad siendo penalizado por los diferentes buscadores.
-            Para evitar este inconveniente se simula un envoltorio compuesto
-            por un enlace que visualmente el usuario interprete que puede
-            presionar la imagen.
-        -->
-        <a [routerLink]="['/']" title="DEV-ECON">DEV-ECON</a>
+    <div class="col-6 col-md-3" *ngFor="let superHeroe of (superHeroes | async); trackBy: trackByFunction">
+        <div class="card">
+            <!--
+                Un enlace sole puede contener como valor texto en su etiqueta
+                debido a que esto afecto los lectores de pantalla para personas
+                con discapacidad siendo penalizado por los diferentes buscadores.
+                Para evitar este inconveniente se simula un envoltorio compuesto
+                por un enlace que visualmente el usuario interprete que puede
+                presionar la imagen.
+            -->
+            <a [routerLink]="['/', superHeroe.id]" [title]="superHeroe.name">{{superHeroe.name}}</a>
 
-        <figure class="card-img-top">
-            <img class="img-fluid"
-                src="https://raw.githubusercontent.com/akabab/superhero-api/0.2.0/api/images/md/1-a-bomb.jpg" alt="">
-            <figcaption>Gráfico A: Uso de navegadores</figcaption>
-        </figure>
-        <div class="card-body">
-            <ul>
-                <li>Intelligence: <strong>38</strong></li>
-                <li>Speed: <strong>17</strong></li>
-                <li>Power: <strong>24</strong></li>
-                <li>Gender: <strong>Male</strong></li>
-                <li>Race: <strong>Human</strong></li>
-            </ul>
+            <figure class="card-img-top">
+                <img class="img-fluid" [src]="superHeroe.images.md" [alt]="superHeroe.name">
+                <figcaption>{{superHeroe.name}}</figcaption>
+            </figure>
+            <div class="card-body">
+                <ul>
+                    <li>Intelligence: <strong>{{superHeroe.powerstats.intelligence || 'N'}}</strong></li>
+                    <li>Speed: <strong>{{superHeroe.powerstats.speed || 'N'}}</strong></li>
+                    <li>Power: <strong>{{superHeroe.powerstats.power || 'N'}}</strong></li>
+                    <li>Gender: <strong>{{superHeroe.appearance.gender || 'N'}}</strong></li>
+                    <li>Race: <strong>{{superHeroe.appearance.race || 'N'}}</strong></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

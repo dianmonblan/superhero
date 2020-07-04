@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './header/header.module';
 import { FooterModule } from './footer/footer.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FooterModule } from './footer/footer.module';
     AppRoutingModule,
     HeaderModule,
     FooterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

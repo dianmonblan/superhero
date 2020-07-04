@@ -1,6 +1,6 @@
 import { ModelAbstract } from './model-abstract';
 
-export class SuperHeroBiography extends ModelAbstract {
+export class SuperHeroBiographyModel extends ModelAbstract<SuperHeroBiographyModel> {
     fullName: string;
     alterEgos: string;
     aliases: string[];
@@ -8,4 +8,9 @@ export class SuperHeroBiography extends ModelAbstract {
     firstAppearance: string;
     publisher: string;
     alignment: string;
+
+    setData(data: SuperHeroBiographyModel): void {
+        if (data)
+            Object.assign(this, data)
+    }
 }
