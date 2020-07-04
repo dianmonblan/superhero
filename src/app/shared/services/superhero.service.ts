@@ -14,6 +14,7 @@ const SUPERHEROES_RANDOM_IDS_KEY = makeStateKey('superHeroesIds');
 
 @Injectable({ providedIn: 'root' })
 export class SuperHeroService {
+    private _superHeroesIds: number[]
     private _superHeroe: SuperHeroModel
     private _superHeroes: SuperHeroModel[] = []
 
@@ -29,6 +30,7 @@ export class SuperHeroService {
         if (isPlatformBrowser(this._platform)) {
             this._superHeroe = new SuperHeroModel(this._transferState.get<SuperHeroModel>(SUPERHEROE_KEY, null));
             this._superHeroes = this._map(this._transferState.get<SuperHeroModel[]>(SUPERHEROES_KEY, []));
+            this._superHeroesIds = this._transferState.get<number[]>(SUPERHEROES_RANDOM_IDS_KEY, [])
         }
     }
 
@@ -65,22 +67,21 @@ export class SuperHeroService {
 
     private _random(length: number): SuperHeroModel[] {
         let superHeroes: SuperHeroModel[] = []
-        let superHeroesIds: number[] = this._transferState.get<number[]>(SUPERHEROES_RANDOM_IDS_KEY, [])
 
-        if (!superHeroesIds.length) {
+        if (!this._superHeroesIds.length) {
             while (superHeroes.length < length) {
                 let randomNumber: number = Math.floor(Math.random() * this._superHeroes.length)
 
-                if (!superHeroesIds.includes(randomNumber)) {
-                    superHeroesIds.push(randomNumber)
+                if (!this._superHeroesIds.includes(randomNumber)) {
+                    this._superHeroesIds.push(randomNumber)
                     superHeroes.push(this._superHeroes[randomNumber])
                 }
             }
 
             if (isPlatformServer(this._platform))
-                this._transferState.set<number[]>(SUPERHEROES_RANDOM_IDS_KEY, superHeroesIds)
+                this._transferState.set<number[]>(SUPERHEROES_RANDOM_IDS_KEY, this._superHeroesIds)
         } else
-            superHeroesIds.forEach((id: number) => superHeroes.push(this._superHeroes[id]))
+            this._superHeroesIds.forEach((id: number) => superHeroes.push(this._superHeroes[id]))
 
         return superHeroes
     }
