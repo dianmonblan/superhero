@@ -1,1 +1,60 @@
-<p>id works!</p>
+<ng-template #links let-class="class">
+    <div class="links {{class}}">
+        <a [routerLink]="['/']" title="IR A LISTADO DE SUPERHÉROES">
+            REGRESAR AL LISTADO DE SUPERHÉROES</a>
+    </div>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="links; context: {class: 'bottom'}">
+</ng-container>
+<article class="row" *ngIf="(superHero$ | async) as superHero">
+    <div class="col-5">
+        <div class="card">
+            <figure class="card-img-top">
+                <img imageLazyLoading="{{superHero.images.lg}}" imageLazyLoadingAlt="{{superHero.name}}" />
+                <figcaption>{{superHero.name}}</figcaption>
+            </figure>
+        </div>
+    </div>
+    <div class="col-7">
+        <h1>{{superHero.name}}</h1>
+        <h5>Power stats</h5>
+        <ul class="d-inline-block">
+            <li>Intelligence: <strong>{{superHero.powerstats.intelligence || 'N'}}</strong></li>
+            <li>Strength: <strong>{{superHero.powerstats.strength || 'N'}}</strong></li>
+            <li>Speed: <strong>{{superHero.powerstats.speed || 'N'}}</strong></li>
+            <li>Durability: <strong>{{superHero.powerstats.durability || 'N'}}</strong></li>
+            <li>Power: <strong>{{superHero.powerstats.power || 'N'}}</strong></li>
+            <li>Conbat: <strong>{{superHero.powerstats.conbat || 'N'}}</strong></li>
+        </ul>
+        <h5>Appearance</h5>
+        <ul class="d-inline-block">
+            <li>Gender: <strong>{{superHero.appearance.gender || 'N'}}</strong></li>
+            <li>Race: <strong>{{superHero.appearance.race || 'N'}}</strong></li>
+            <li>Height: <strong>{{superHero.appearance.height || 'N'}}</strong></li>
+            <li>Weight: <strong>{{superHero.appearance.weight || 'N'}}</strong></li>
+            <li>EyeColor: <strong>{{superHero.appearance.eyeColor || 'N'}}</strong></li>
+            <li>HairColor: <strong>{{superHero.appearance.hairColor || 'N'}}</strong></li>
+        </ul>
+        <h5>Biography</h5>
+        <ul>
+            <li><strong>{{superHero.biography.fullName || 'N'}}</strong></li>
+            <li><i>{{superHero.biography.alterEgos || 'N'}}</i></li>
+            <li><i>{{superHero.biography.aliases || 'N'}}</i></li>
+            <li><u>{{superHero.biography.placeOfBirth || 'N'}}</u></li>
+            <li>{{superHero.biography.firstAppearance || 'N'}}</li>
+            <li>{{superHero.biography.publisher || 'N'}}</li>
+            <li>{{superHero.biography.alignment || 'N'}}</li>
+        </ul>
+        <h5>work</h5>
+        <ul>
+            <li>Occupation: <strong>{{superHero.work.occupation || 'N'}}</strong></li>
+            <li>Base: <strong>{{superHero.work.base || 'N'}}</strong></li>
+        </ul>
+        <h5>Connections</h5>
+        <p>{{superHero.connections.groupAffiliation || 'N'}}</p>
+        <p>{{superHero.connections.relatives || 'N'}}</p>
+    </div>
+</article>
+<ng-container *ngTemplateOutlet="links; context: {class: 'top'}">
+</ng-container>

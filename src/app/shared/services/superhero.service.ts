@@ -15,8 +15,8 @@ const SUPERHEROES_RANDOM_IDS_KEY = makeStateKey('superHeroesIds');
 
 @Injectable({ providedIn: 'root' })
 export class SuperHeroService {
-    private _superHeroesIds: number[]
-    private _superHeroe: SuperHeroModel
+    private _superHeroesIds: number[] = []
+    private _superHero: SuperHeroModel = null
     private _superHeroes: SuperHeroModel[] = []
 
     constructor(
@@ -29,10 +29,16 @@ export class SuperHeroService {
 
     private readTransferState(): void {
         if (isPlatformBrowser(this._platform)) {
-            this._superHeroe = new SuperHeroModel(this._transferState.get<SuperHeroModel>(SUPERHEROE_KEY, null));
+            let superHero: SuperHeroModel = new SuperHeroModel()
+            superHero.setData(this._transferState.get<SuperHeroModel>(SUPERHEROE_KEY, null))
+            this._superHero = superHero;
             this._superHeroes = this._map(this._transferState.get<SuperHeroModel[]>(SUPERHEROES_KEY, []));
             this._superHeroesIds = this._transferState.get<number[]>(SUPERHEROES_RANDOM_IDS_KEY, [])
         }
+    }
+
+    private existsSuperHeroe(): boolean {
+        return this._superHero && this._superHero.id ? true : false
     }
 
     private existsSuperHeroes(): boolean {
@@ -40,7 +46,11 @@ export class SuperHeroService {
     }
 
     private _map(superHeroes: SuperHeroModel[]): SuperHeroModel[] {
-        return superHeroes.map((superHero: SuperHeroModel) => new SuperHeroModel(superHero))
+        return superHeroes.map((_superHero: SuperHeroModel) => {
+            let superHero: SuperHeroModel = new SuperHeroModel()
+            superHero.setData(_superHero)
+            return superHero
+        })
     }
 
     /** 
@@ -69,7 +79,6 @@ export class SuperHeroService {
     private _random(length: number): SuperHeroModel[] {
         let superHeroes: SuperHeroModel[] = []
         length = this._superHeroes.length < length ? this._superHeroes.length : length
-        console.log(length)
 
         if (!this._superHeroesIds.length) {
             while (superHeroes.length < length) {
@@ -110,24 +119,27 @@ export class SuperHeroService {
             )
     }
 
-    id(id: number): Observable<SuperHeroModel> {
+    detail(id: number): Observable<SuperHeroModel> {
         if (this.existsSuperHeroes())
             return of(this._superHeroes.find((superHero: SuperHeroModel) => superHero.id == id))
-        else if (this._superHeroe)
-            return of(this._superHeroe).pipe(
-                filter((superHero: SuperHeroModel) => this._superHeroe.id == id)
+        else if (this.existsSuperHeroe())
+            return of(this._superHero).pipe(
+                filter((superHero: SuperHeroModel) => this._superHero.id == id)
             )
 
         const RESOURCE: string = SUPERHERO.RESOURCE.ID.replace('#{ID}', id.toString())
-
         return this._httpClient.get<SuperHeroModel>(RESOURCE)
             .pipe(
                 retry(3),
-                map((superHero: SuperHeroModel) => new SuperHeroModel(superHero)),
-                tap((superHeroe: SuperHeroModel) => this._superHeroe = superHeroe),
-                tap((superHeroe: SuperHeroModel) => {
+                map((_superHero: SuperHeroModel) => {
+                    let superHero = new SuperHeroModel()
+                    superHero.setData(_superHero)
+                    return superHero
+                }),
+                tap((superHero: SuperHeroModel) => this._superHero = superHero),
+                tap((superHero: SuperHeroModel) => {
                     if (isPlatformServer(this._platform))
-                        this._transferState.set<SuperHeroModel>(SUPERHEROE_KEY, this._superHeroe)
+                        this._transferState.set<SuperHeroModel>(SUPERHEROE_KEY, superHero)
                 })
             )
     }

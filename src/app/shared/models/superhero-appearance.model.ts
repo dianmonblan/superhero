@@ -7,9 +7,4 @@ export class SuperHeroAppearanceModel extends ModelAbstract<SuperHeroAppearanceM
     weight: string[];
     eyeColor: string;
     hairColor: string;
-
-    setData(data: SuperHeroAppearanceModel): void {
-        if (data)
-            Object.assign(this, data)
-    }
 }

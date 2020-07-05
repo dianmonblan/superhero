@@ -8,9 +8,4 @@ export class SuperHeroBiographyModel extends ModelAbstract<SuperHeroBiographyMod
     firstAppearance: string;
     publisher: string;
     alignment: string;
-
-    setData(data: SuperHeroBiographyModel): void {
-        if (data)
-            Object.assign(this, data)
-    }
 }

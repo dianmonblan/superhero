@@ -3,10 +3,8 @@ interface ModelInterface<T> {
 }
 
 export abstract class ModelAbstract<T> implements ModelInterface<T> {
-    constructor(data: T) {
+    setData(data: T): void {
         if (data)
-            this.setData(data)
+            Object.assign(this, data)
     }
-
-    abstract setData(data: T): void
 }

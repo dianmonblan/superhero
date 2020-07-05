@@ -20,6 +20,6 @@ const SUPERHERO_URL_API: string = 'https://raw.githubusercontent.com/akabab/supe
 export const SUPERHERO: { [key: string]: { [key: string]: string } } = {
   RESOURCE: {
     LIST: `${SUPERHERO_URL_API}all.json`,
-    ID: `${SUPERHERO_URL_API}#{ID}.json`
+    ID: `${SUPERHERO_URL_API}id/#{ID}.json`
   }
 };

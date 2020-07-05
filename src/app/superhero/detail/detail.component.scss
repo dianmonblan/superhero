@@ -1,3 +1,82 @@
+// Custom
+@import "../../../themes/variables.scss";
+
 :host {
   display: block;
+  margin: 60px 0px 30px 0px;
+
+  .card {
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+
+    figure {
+      margin: 0px;
+      background-color: $card-background-color;
+      min-height: 300px;
+
+      img {
+        min-height: 500px;
+        max-width: 100%;
+        height: auto;
+      }
+
+      figcaption {
+        background-color: #fff;
+        padding: 0px 10px 0px 10px;
+        text-align: center;
+        color: $primary-color;
+        font: DemiBold 26px/31px TT Supermolot Neue;
+      }
+    }
+  }
+
+  ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+
+    &.d-inline-block {
+      li {
+        display: inline-block;
+      }
+    }
+
+    li {
+      padding-right: 20px;
+    }
+  }
+
+  .links {
+    text-align: center;
+
+    &.top {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    &.bottom {
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    a {
+      color: $primary-color;
+
+      &::before {
+        content: "<< ";
+      }
+
+      &::after {
+        content: " >>";
+      }
+    }
+  }
 }

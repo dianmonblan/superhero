@@ -7,9 +7,4 @@ export class SuperHeroPowerstatsModel extends ModelAbstract<SuperHeroPowerstatsM
     durability: number;
     power: number;
     combat: number;
-
-    setData(data: SuperHeroPowerstatsModel): void {
-        if (data)
-            Object.assign(this, data)
-    }
 }

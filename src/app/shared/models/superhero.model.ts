@@ -10,34 +10,52 @@ export class SuperHeroModel extends ModelAbstract<SuperHeroModel> {
     id: number;
     name: string;
     slug: string;
-    powerstats: SuperHeroPowerstatsModel;
-    appearance: SuperHeroAppearanceModel;
-    biography: SuperHeroBiographyModel;
-    work: SuperHeroWorkModel;
-    connections: SuperHeroConnectionsModel;
-    images: SuperHeroImagesModel;
+    powerstats: SuperHeroPowerstatsModel = new SuperHeroPowerstatsModel();
+    appearance: SuperHeroAppearanceModel = new SuperHeroAppearanceModel();
+    biography: SuperHeroBiographyModel = new SuperHeroBiographyModel();
+    work: SuperHeroWorkModel = new SuperHeroWorkModel();
+    connections: SuperHeroConnectionsModel = new SuperHeroConnectionsModel();
+    images: SuperHeroImagesModel = new SuperHeroImagesModel();
 
     setData(data: SuperHeroModel): void {
         if (data) {
-            Object.assign(this, data)
+            super.setData(data)
 
-            if (data.powerstats)
-                this.powerstats = new SuperHeroPowerstatsModel(data.powerstats)
+            if (data.powerstats) {
+                let powerstats = new SuperHeroPowerstatsModel()
+                powerstats.setData(data.powerstats)
+                this.powerstats = powerstats
+            }
 
-            if (data.appearance)
-                this.appearance = new SuperHeroAppearanceModel(data.appearance)
+            if (data.appearance) {
+                let appearance = new SuperHeroAppearanceModel()
+                appearance.setData(data.appearance)
+                this.appearance = appearance
+            }
 
-            if (data.biography)
-                this.biography = new SuperHeroBiographyModel(data.biography)
+            if (data.biography) {
+                let biography = new SuperHeroBiographyModel()
+                biography.setData(data.biography)
+                this.biography = biography
+            }
 
-            if (data.work)
-                this.work = new SuperHeroWorkModel(data.work)
+            if (data.work) {
+                let work = new SuperHeroWorkModel()
+                work.setData(data.work)
+                this.work = work
+            }
 
-            if (data.connections)
-                this.connections = new SuperHeroConnectionsModel(data.connections)
+            if (data.connections) {
+                let connections = new SuperHeroConnectionsModel()
+                connections.setData(data.connections)
+                this.connections = connections
+            }
 
-            if (data.images)
-                this.images = new SuperHeroImagesModel(data.images)
+            if (data.images) {
+                let images = new SuperHeroImagesModel()
+                images.setData(data.images)
+                this.images = images
+            }
         }
     }
 }
