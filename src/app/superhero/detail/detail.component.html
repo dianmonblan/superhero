@@ -1,13 +1,17 @@
+<ng-template #loading>
+    <div class="loading">Loading superhero...</div>
+</ng-template>
+
 <ng-template #links let-class="class">
-    <div class="links {{class}}">
+    <div class="links {{class}}" [hidden]="!(superHero$ | async)">
         <a [routerLink]="['/']" title="IR A LISTADO DE SUPERHÉROES">
-            VIEW ALL SUPERHEROES</a>
+            VIEW ALL SUPERHÉROES</a>
     </div>
 </ng-template>
 
 <ng-container *ngTemplateOutlet="links; context: {class: 'bottom'}">
 </ng-container>
-<article class="row" *ngIf="(superHero$ | async) as superHero">
+<article class="row" *ngIf="(superHero$ | async) as superHero; else loading">
     <div class="col-5">
         <div class="card">
             <figure class="card-img-top">

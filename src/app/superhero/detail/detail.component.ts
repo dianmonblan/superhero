@@ -7,7 +7,7 @@ import { SUPERHERO } from 'src/environments/environment';
 
 import { SuperHeroModel } from '../../shared/models/superhero.model';
 import { SuperHeroService } from '../../shared/services/superhero.service';
-import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail',
@@ -15,7 +15,7 @@ import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit, OnDestroy {
-  private _superHeroBehaviorSubject$: BehaviorSubject<SuperHeroModel> = new BehaviorSubject(new SuperHeroModel())
+  private _superHeroBehaviorSubject$: BehaviorSubject<SuperHeroModel> = new BehaviorSubject(null)
   superHero$: Observable<SuperHeroModel> = this._superHeroBehaviorSubject$.asObservable()
 
   constructor(
@@ -56,8 +56,7 @@ export class DetailComponent implements OnInit, OnDestroy {
           })
 
           this._superHeroBehaviorSubject$.next(superHero)
-        },
-        (error: HttpErrorResponse) => console.error(error)
+        }
       )
   }
 }

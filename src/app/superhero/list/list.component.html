@@ -1,9 +1,12 @@
-<div class="row">
-    <div class="col-6 col-md-3"
-        *ngFor="let superHeroe of (superHeroes$ | async); index as index; trackBy: trackByFunction;">
+<ng-template #loading>
+    <div class="loading">Loading superhero...</div>
+</ng-template>
+
+<div class="row" *ngIf="(superHeroes$ | async) as superHeroes; else loading">
+    <div class="col-6 col-md-3" *ngFor="let superHeroe of superHeroes; index as index; trackBy: trackByFunction; ">
         <div class="card">
             <!--
-                Un enlace sole puede contener como valor texto en su etiqueta
+                Un enlace solo puede contener como valor texto en su etiqueta
                 debido a que esto afecto los lectores de pantalla para personas
                 con discapacidad siendo penalizado por los diferentes buscadores.
                 Para evitar este inconveniente se simula un envoltorio compuesto

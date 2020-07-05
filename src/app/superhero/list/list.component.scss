@@ -1,9 +1,12 @@
 // Custom
+@import "../../../themes/mixins.scss";
 @import "../../../themes/variables.scss";
 
 :host {
   display: block;
   margin: 60px 0px 30px 0px;
+
+  @include loading;
 
   .card {
     position: relative;

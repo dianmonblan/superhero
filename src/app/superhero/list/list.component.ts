@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { SuperHeroService } from '../../shared/services/superhero.service';
@@ -13,7 +13,7 @@ import { SUPERHERO } from '../../../environments/environment';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
-  private _superHeroesBehaviorSubject$: BehaviorSubject<SuperHeroModel[]> = new BehaviorSubject([])
+  private _superHeroesBehaviorSubject$: BehaviorSubject<SuperHeroModel[]> = new BehaviorSubject(null)
   superHeroes$: Observable<SuperHeroModel[]> = this._superHeroesBehaviorSubject$.asObservable()
 
   constructor(
@@ -47,8 +47,7 @@ export class ListComponent implements OnInit, OnDestroy {
           })
 
           this._superHeroesBehaviorSubject$.next(superHeroes)
-        },
-        (error: HttpErrorResponse) => console.error(error)
+        }
       )
   }
 
