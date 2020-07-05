@@ -105,7 +105,7 @@ export class SuperHeroService {
                 map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes)
             )
 
-        return this._httpClient.get<SuperHeroModel[]>(SUPERHERO.RESOURCE.LIST)
+        return this._httpClient.get<SuperHeroModel[]>((<{ [key: string]: string }>SUPERHERO.RESOURCE).LIST)
             .pipe(
                 retry(3),
                 map((superHeroes: SuperHeroModel[]) => this._map(superHeroes)),
@@ -127,7 +127,7 @@ export class SuperHeroService {
                 filter((superHero: SuperHeroModel) => this._superHero.id == id)
             )
 
-        const RESOURCE: string = SUPERHERO.RESOURCE.ID.replace('#{ID}', id.toString())
+        const RESOURCE: string = (<{ [key: string]: string }>SUPERHERO.RESOURCE).ID.replace('#{ID}', id.toString())
         return this._httpClient.get<SuperHeroModel>(RESOURCE)
             .pipe(
                 retry(3),

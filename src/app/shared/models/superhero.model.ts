@@ -5,8 +5,9 @@ import { SuperHeroBiographyModel } from './superhero-biography.model';
 import { SuperHeroWorkModel } from './superhero-work.model';
 import { SuperHeroConnectionsModel } from './superhero-connections.model';
 import { SuperHeroImagesModel } from './superhero-images.model';
+import { PositioningSEO } from './interfaces';
 
-export class SuperHeroModel extends ModelAbstract<SuperHeroModel> {
+export class SuperHeroModel extends ModelAbstract<SuperHeroModel> implements PositioningSEO {
     id: number;
     name: string;
     slug: string;
@@ -16,6 +17,25 @@ export class SuperHeroModel extends ModelAbstract<SuperHeroModel> {
     work: SuperHeroWorkModel = new SuperHeroWorkModel();
     connections: SuperHeroConnectionsModel = new SuperHeroConnectionsModel();
     images: SuperHeroImagesModel = new SuperHeroImagesModel();
+
+    get titleSEO(): string {
+        return this.name.toUpperCase()
+    };
+    get descriptionSEO(): string {
+        return this.work.occupation
+    };
+    get keywordsSEO(): string {
+        return [
+            this.name,
+            this.slug,
+            this.appearance.gender,
+            this.appearance.race,
+            this.appearance.eyeColor,
+            this.appearance.hairColor,
+            this.biography.publisher,
+            this.biography.alignment,
+        ].join(',')
+    };
 
     setData(data: SuperHeroModel): void {
         if (data) {

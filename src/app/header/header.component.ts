@@ -1,11 +1,7 @@
 import { Component, HostListener } from '@angular/core';
+import { MenuOption } from '../shared/models/interfaces';
 
 const MOVILE_MENU_ID: string = "navbar-toggler"
-
-interface MenuOption {
-  name: string
-  link: string
-}
 
 @Component({
   selector: 'app-header',

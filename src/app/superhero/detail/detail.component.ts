@@ -3,9 +3,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { SUPERHERO } from 'src/environments/environment';
 
 import { SuperHeroModel } from '../../shared/models/superhero.model';
 import { SuperHeroService } from '../../shared/services/superhero.service';
+import { Title, Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail',
@@ -18,7 +20,10 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private _superHeroService: SuperHeroService,
-    private _activatedRoute: ActivatedRoute) { }
+    private _activatedRoute: ActivatedRoute,
+    private _title: Title,
+    private _meta: Meta
+  ) { }
 
   ngOnInit(): void {
     this.startSubscribers()
@@ -38,7 +43,20 @@ export class DetailComponent implements OnInit, OnDestroy {
   detail(id: number): void {
     this._superHeroService.detail(id)
       .subscribe(
-        (superHero: SuperHeroModel) => this._superHeroBehaviorSubject$.next(superHero),
+        (superHero: SuperHeroModel) => {
+          this._title.setTitle(`${superHero.titleSEO} / ${SUPERHERO.CONFIGURATION.TITLE}`)
+          this._meta.updateTag({
+            name: 'description',
+            content: superHero.descriptionSEO
+          })
+
+          this._meta.updateTag({
+            name: 'keywords',
+            content: superHero.keywordsSEO
+          })
+
+          this._superHeroBehaviorSubject$.next(superHero)
+        },
         (error: HttpErrorResponse) => console.error(error)
       )
   }

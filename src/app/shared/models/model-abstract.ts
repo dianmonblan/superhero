@@ -1,6 +1,4 @@
-interface ModelInterface<T> {
-    setData(data: T): void
-}
+import { ModelInterface } from './interfaces';
 
 export abstract class ModelAbstract<T> implements ModelInterface<T> {
     setData(data: T): void {
