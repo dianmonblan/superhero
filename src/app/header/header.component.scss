@@ -1,27 +1,19 @@
-// Bootstrap
-// @import "~bootstrap/scss/_functions";
-// @import "~bootstrap/scss/_variables";
-// @import "~bootstrap/scss/_mixins";
-
 // Custom
 @import "../../themes/variables.scss";
 
 :host {
-  // @import "~bootstrap/scss/utilities/_display";
   display: block;
   background: $header-background-color 0% 0% no-repeat padding-box;
 
   header {
-    // @import "~bootstrap/scss/_navbar";
-
     nav {
       padding: 34.5px 0px 34.5px 0px !important;
 
       .navbar-brand {
-        display: inline-block;
-        position: relative;
+        display: block;
         margin: 0px;
         padding: 0px;
+        text-align: center;
 
         a {
           position: absolute;
@@ -39,86 +31,43 @@
         }
       }
 
-      .navbar-toggler {
-        color: $primary-color;
-        border-color: $primary-color;
-
-        .navbar-toggler-icon {
-          background-image: escape-svg($navbar-dark-toggler-icon-bg);
-        }
-      }
-
-      .navbar-nav {
-        display: flex;
-        flex-direction: row-reverse;
-        padding-left: 0;
-        margin-bottom: 0;
+      ul.navbar-nav {
+        display: block;
         list-style: none;
-      }
+        padding: 0px;
+        margin: 0px;
 
-      .menu-options {
-        float: right;
-        height: 100%;
-        align-items: center;
-        justify-items: center;
-
-        &.movile {
-          // display: block;
-          // padding: 34.5px 15px 34.5px 15px !important;
-          // background: $header-background-color 0% 0% no-repeat padding-box;
-          // position: absolute;
-          // top: 0px;
-          // left: 0px;
-          // z-index: 1;
-
-          position: relative;
+        li {
           display: block;
-          width: 100%;
-          height: 100%;
-
-          ul {
-            vertical-align: middle;
-            background: $header-background-color 0% 0% no-repeat padding-box;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-
-            li {
-              margin: 15px 0px 15px 0px;
-              text-align: center;
-            }
-          }
-        }
-
-        ul {
-          display: inline;
-
-          li {
-            display: inline-block;
-            font: DemiBold 20px/24px TT Supermolot Neue;
-            margin: 0px 30px 0px 30px;
-          }
+          text-align: center;
+          font: DemiBold 20px/24px TT Supermolot Neue;
+          margin: 0px 30px 0px 30px;
         }
       }
-    }
-  }
-
-  @media (min-width: 576px) {
-    .d-sm-block {
-      display: block !important;
     }
   }
 
   @media (min-width: 768px) {
-    .d-md-none {
-      display: none !important;
-    }
+    header {
+      nav {
+        .navbar-brand {
+          display: inline-block;
+          text-align: left;
+        }
 
-    .d-md-inline-block {
-      display: inline-block !important;
+        ul {
+          float: right;
+
+          &.navbar-nav {
+            display: inline-block;
+            margin-top: 30px;
+
+            li {
+              display: inline-block;
+            }
+          }
+        }
+      }
     }
   }
 }
