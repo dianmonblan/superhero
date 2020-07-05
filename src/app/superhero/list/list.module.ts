@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ListComponent } from './list.component';
-import { ListRoutingModule } from './list-routing.module';
+import { SuperHeroListComponent } from './list.component';
+import { SuperHeroListRoutingModule } from './list-routing.module';
 import { DirectivesModule } from '../../shared/directives/directives.module';
 
 @NgModule({
-  declarations: [ListComponent],
+  declarations: [SuperHeroListComponent],
   imports: [
     CommonModule,
     DirectivesModule,
-    ListRoutingModule
+    SuperHeroListRoutingModule
   ],
   exports: [
-    ListComponent
+    SuperHeroListComponent
   ]
 })
-export class ListModule { }
+export class SuperHeroListModule { }

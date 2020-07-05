@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { SUPERHERO } from 'src/environments/environment';
@@ -14,7 +13,7 @@ import { Title, Meta } from '@angular/platform-browser';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent implements OnInit, OnDestroy {
+export class SuperHeroDetailComponent implements OnInit, OnDestroy {
   private _superHeroBehaviorSubject$: BehaviorSubject<SuperHeroModel> = new BehaviorSubject(null)
   superHero$: Observable<SuperHeroModel> = this._superHeroBehaviorSubject$.asObservable()
 

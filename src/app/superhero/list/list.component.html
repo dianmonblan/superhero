@@ -13,7 +13,8 @@
                 por un enlace que visualmente el usuario interprete que puede
                 presionar la imagen.
             -->
-            <a [routerLink]="['/', superHeroe.id]" [title]="superHeroe.name">{{superHeroe.name}}</a>
+            <a [routerLink]="['/', superHeroe.id]" queryParamsHandling="merge"
+                [title]="superHeroe.name">{{superHeroe.name}}</a>
 
             <figure class="card-img-top">
                 <img imageLazyLoading="{{superHeroe.images.md}}" imageLazyLoadingAlt="{{superHeroe.name}}" />

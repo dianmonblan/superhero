@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DetailComponent } from './detail.component';
-import { DetailRoutingModule } from './detail-routing.module';
+import { SuperHeroDetailComponent } from './detail.component';
+import { SuperHeroDetailRoutingModule } from './detail-routing.module';
 import { DirectivesModule } from '../../shared/directives/directives.module';
 
 @NgModule({
-  declarations: [DetailComponent],
+  declarations: [SuperHeroDetailComponent],
   imports: [
     CommonModule,
     DirectivesModule,
-    DetailRoutingModule
+    SuperHeroDetailRoutingModule
   ],
   exports: [
-    DetailComponent
+    SuperHeroDetailComponent
   ]
 })
-export class DetailModule { }
+export class SuperHeroDetailModule { }

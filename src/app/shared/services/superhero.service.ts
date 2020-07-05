@@ -58,21 +58,12 @@ export class SuperHeroService {
      * optimizar la busqueda y refactorizar el código.
      */
     private _filter(filter: string): SuperHeroModel[] {
+        filter = filter.toString().toUpperCase()
+
         return this._superHeroes.filter((superHero: SuperHeroModel) =>
-            superHero.name.includes(filter)
-            || superHero.slug.includes(filter)
-            || superHero.appearance.gender.includes(filter)
-            || superHero.appearance.race.includes(filter)
-            || superHero.appearance.eyeColor.includes(filter)
-            || superHero.biography.fullName.includes(filter)
-            || superHero.biography.alterEgos.includes(filter)
-            || superHero.biography.placeOfBirth.includes(filter)
-            || superHero.biography.firstAppearance.includes(filter)
-            || superHero.biography.publisher.includes(filter)
-            || superHero.biography.alignment.includes(filter)
-            || superHero.work.occupation.includes(filter)
-            || superHero.work.base.includes(filter)
-            || superHero.connections.relatives.includes(filter)
+            superHero.id.toString().toUpperCase().includes(filter)
+            || superHero.name.toString().toUpperCase().includes(filter)
+            || superHero.biography.fullName.toString().toUpperCase().includes(filter)
         )
     }
 
@@ -98,11 +89,14 @@ export class SuperHeroService {
         return superHeroes
     }
 
-    list(random: boolean = true, filter: string = null, length: number = NUMBER_SUPERHEROES_FOR_LIST): Observable<SuperHeroModel[]> {
+    list(filter: string = null, random: boolean = true, length: number = NUMBER_SUPERHEROES_FOR_LIST): Observable<SuperHeroModel[]> {
         if (this.existsSuperHeroes())
             return of(this._superHeroes).pipe(
-                map((superHeroes: SuperHeroModel[]) => filter ? this._filter(filter) : superHeroes),
-                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes)
+                map((superHeroes: SuperHeroModel[]) => {
+                    superHeroes = filter ? this._filter(filter) : superHeroes
+                    return superHeroes
+                }),
+                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes.slice(0, length))
             )
 
         return this._httpClient.get<SuperHeroModel[]>((<{ [key: string]: string }>SUPERHERO.RESOURCE).LIST)
@@ -114,8 +108,11 @@ export class SuperHeroService {
                     if (isPlatformServer(this._platform))
                         this._transferState.set<SuperHeroModel[]>(SUPERHEROES_KEY, superHeroes)
                 }),
-                map((superHeroes: SuperHeroModel[]) => filter ? this._filter(filter) : superHeroes),
-                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes)
+                map((superHeroes: SuperHeroModel[]) => {
+                    superHeroes = filter ? this._filter(filter) : superHeroes
+                    return superHeroes
+                }),
+                map((superHeroes: SuperHeroModel[]) => random ? this._random(length) : superHeroes.slice(0, length))
             )
     }
 

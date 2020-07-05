@@ -4,7 +4,7 @@
 
 <ng-template #links let-class="class">
     <div class="links {{class}}" [hidden]="!(superHero$ | async)">
-        <a [routerLink]="['/']" title="IR A LISTADO DE SUPERHÉROES">
+        <a [routerLink]="['/']" queryParamsHandling="merge" title="IR A LISTADO DE SUPERHÉROES">
             VIEW ALL SUPERHÉROES</a>
     </div>
 </ng-template>
