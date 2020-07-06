@@ -17,6 +17,7 @@
     background-clip: border-box;
     border: 1px solid $card-border-color;
     border-radius: 0.25rem;
+    text-align: center;
 
     figure {
       margin: 0px;
@@ -32,7 +33,6 @@
       figcaption {
         background-color: #fff;
         padding: 0px 10px 0px 10px;
-        text-align: center;
         color: $primary-color;
         font: DemiBold 26px/31px TT Supermolot Neue;
       }

@@ -12,7 +12,7 @@
 <ng-container *ngTemplateOutlet="links; context: {class: 'bottom'}">
 </ng-container>
 <article class="row" *ngIf="(superHero$ | async) as superHero; else loading">
-    <div class="col-5">
+    <div class="col-12 col-md-5">
         <div class="card">
             <figure class="card-img-top">
                 <img imageLazyLoading="{{superHero.images.lg}}" imageLazyLoadingAlt="{{superHero.name}}" />
@@ -20,7 +20,7 @@
             </figure>
         </div>
     </div>
-    <div class="col-7">
+    <div class="col-12 col-md-7">
         <h1>{{superHero.name}}</h1>
         <h5>Power stats</h5>
         <ul class="d-inline-block">
