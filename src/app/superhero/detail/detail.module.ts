@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import 'lazysizes';
 
 import { SuperHeroDetailComponent } from './detail.component';
 import { SuperHeroDetailRoutingModule } from './detail-routing.module';

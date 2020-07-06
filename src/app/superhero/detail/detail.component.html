@@ -15,7 +15,8 @@
     <div class="col-12 col-md-5">
         <div class="card">
             <figure class="card-img-top">
-                <img imageLazyLoading="{{superHero.images.lg}}" imageLazyLoadingAlt="{{superHero.name}}" />
+                <img data-sizes="auto" data-srcset="{{superHero.imagesLazySizes()}}" class="lazyload"
+                    alt="{{superHero.name}}" />
                 <figcaption>{{superHero.name}}</figcaption>
             </figure>
         </div>

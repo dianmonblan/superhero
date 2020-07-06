@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import 'lazysizes';
 
 import { SuperHeroListComponent } from './list.component';
 import { SuperHeroListRoutingModule } from './list-routing.module';
-import { DirectivesModule } from '../../shared/directives/directives.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [SuperHeroListComponent],
   imports: [
     CommonModule,
-    DirectivesModule,
+    PipesModule,
     SuperHeroListRoutingModule
   ],
   exports: [

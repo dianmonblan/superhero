@@ -37,6 +37,10 @@ export class SuperHeroModel extends ModelAbstract<SuperHeroModel> implements Pos
         ].join(',')
     };
 
+    imagesLazySizes(): string {
+        return this.images.lazySizes()
+    }
+
     setData(data: SuperHeroModel): void {
         if (data) {
             super.setData(data)

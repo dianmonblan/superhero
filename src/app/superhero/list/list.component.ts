@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ParamMap, ActivatedRoute } from '@angular/router';
 
 import { SuperHeroService } from '../../shared/services/superhero.service';

@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { SUPERHERO } from 'src/environments/environment';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { SuperHeroModel } from '../../shared/models/superhero.model';
 import { SuperHeroService } from '../../shared/services/superhero.service';
-import { Title, Meta } from '@angular/platform-browser';
+import { SUPERHERO } from '../../../environments/environment';
 
 @Component({
   selector: 'app-detail',
